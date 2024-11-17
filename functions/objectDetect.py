@@ -7,7 +7,7 @@ import numpy as np
 # Load YOLO model
 
 ## if not accessing make sure to use an absolute path  
-model = YOLO("../models/Object Detection/content/runs/detect/train/weights/")
+model = YOLO("../models/Object Detection/content/runs/detect/train/weights/best.pt")
 
 # COCO dataset class names
 COCO_CLASSES = {
@@ -63,7 +63,7 @@ def generate_prompt(obj_data):
     
     for obj_id, details in obj_data.items():
         # Map object ID to its class name
-        obj_name = COCO_CLASSES[int(obj_id)]
+        obj_name = COCO_CLASSES[int(obj_id)+1]
         
         # Generate a prompt for the object
         prompts.append(
