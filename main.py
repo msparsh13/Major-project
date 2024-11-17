@@ -1,7 +1,7 @@
 import gradio as gr
 from functions.imageCaptioning import generate_captions
 from functions.labelReading import specialreadnews
-from functions.objectDetect import objectdetect
+# from functions.objectDetect import objectdetect
    
 with gr.Blocks() as demo:
     gr.Markdown("## NAYAN")
@@ -13,7 +13,7 @@ with gr.Blocks() as demo:
     # Buttons for different functionalities
     with gr.Row():
         btn_caption = gr.Button("Generate Captions")
-        btn_detection = gr.Button("Object Detection")
+        # btn_detection = gr.Button("Object Detection")
         btn_labels = gr.Button("Read Labels")
     
     # Output display
@@ -22,7 +22,7 @@ with gr.Blocks() as demo:
 
     # Button triggers
     btn_caption.click(generate_captions, inputs=image_input, outputs=output_text)
-    btn_detection.click(objectdetect, inputs=image_input, outputs=output_text)
+    # btn_detection.click(objectdetect, inputs=image_input, outputs=output_text)
     btn_labels.click(specialreadnews, inputs=image_input, outputs=output_text)
 
 # Launch the interface
