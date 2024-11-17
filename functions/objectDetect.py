@@ -6,14 +6,14 @@ import numpy as np
 # Load YOLO model
 model = YOLO("Untitled Folder 1/Major Project/models/Object detection/content/runs/detect/train/weights/best.pt")
 
-def objectdetect(img):
+def objectdetect(image):
     """
     Detects objects using YOLO and estimates their depth and position using MiDaS.
     Returns detected objects with their depth, distance, and position classifications.
     """
     # Initialize an empty dictionary for object data
     obj = {}
-
+    img = cv2.imread(image)
     # Convert image to RGB as required by the model
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
