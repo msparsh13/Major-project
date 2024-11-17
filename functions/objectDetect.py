@@ -1,5 +1,4 @@
 
-
 import torch
 import cv2
 from ultralytics import YOLO
@@ -8,7 +7,7 @@ import numpy as np
 # Load YOLO model
 
 ## if not accessing make sure to use an absolute path  
-model = YOLO("../models/Object Detection/content/runs/detect/train/weights/best.pt")
+model = YOLO("../models/Object Detection/content/runs/detect/train/weights/")
 
 # COCO dataset class names
 COCO_CLASSES = {
