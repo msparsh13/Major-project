@@ -3,11 +3,14 @@ import torch
 import cv2
 from ultralytics import YOLO
 import numpy as np
+import os
 
 # Load YOLO model
 
-## if not accessing make sure to use an absolute path  
-model = YOLO("../models/Object Detection/content/runs/detect/train/weights/best.pt")
+
+path = os.path.abspath(os.getcwd()+"/models/Object Detection/content/runs/detect/train/weights/best.pt")
+model = YOLO(model=path)
+
 
 # COCO dataset class names
 COCO_CLASSES = {
