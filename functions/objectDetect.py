@@ -32,45 +32,62 @@ COCO_CLASSES = {
 
 def objectdetect(img):
     """
-    Detects objects using YOLO and returns detected objects with their data.
+    Detects objects using YOLO and returns directional guidance based on object positions.
     """
     obj = {}
-    
+
     # Convert image to RGB as required by the model
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    
+
     # Perform object detection with YOLO
     results = model.predict(img_rgb, conf=0.6)
-    
+
+    # Get image dimensions
+    img_height, img_width = img.shape[:2]
+    img_center_x = img_width / 2
+
     # Iterate through detection results
     for result in results:
         for box in result.boxes:
             # Extract bounding box coordinates
             xyxy = box.xyxy.cpu().numpy().tolist()
-            
+            x_min, y_min, x_max, y_max = xyxy[0]
+
+            # Calculate the center of the bounding box
+            box_center_x = (x_min + x_max) / 2
+
+            # Determine direction based on the center
+            if box_center_x < img_center_x - img_width * 0.1:  # Left threshold
+                direction = "toward your left"
+            elif box_center_x > img_center_x + img_width * 0.1:  # Right threshold
+                direction = "toward your right"
+            else:
+                direction = "toward the front"
+
             # Extract object class ID and convert to an integer
-            cls_id = int(box.cls.cpu().numpy().item())  # Fix: Extract scalar value
-            
+            cls_id = int(box.cls.cpu().numpy().item())
+
             # Add object data to the dictionary
             obj[str(cls_id)] = {
-                "coordinates": xyxy
+                "direction": direction
             }
-    
+
     return generate_prompt(obj_data=obj)
+
 
 def generate_prompt(obj_data):
     """
     Generates a descriptive prompt based on detected object data.
     """
     prompts = []
-    
+
     for obj_id, details in obj_data.items():
         # Map object ID to its class name
-        obj_name = COCO_CLASSES[int(obj_id)+1]
-        
-        # Generate a prompt for the object
+        obj_name = COCO_CLASSES[int(obj_id) + 1]
+
+        # Generate a prompt with direction
         prompts.append(
-            f"A {obj_name} is detected at coordinates {details['coordinates']} from your point of view."
+            f"A {obj_name} is detected {details['direction']} from your point of view."
         )
-    
+
     return prompts
