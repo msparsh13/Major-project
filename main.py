@@ -1,6 +1,6 @@
 import gradio as gr
 from functions.labelReading import specialreadnews
-## from functions.imageCaptioning import generate_captions
+from functions.imageCaptioning import generate_captions
 from functions.objectDetect import objectdetect
 from utils.text2speech import text_to_speech
 from functions.labelReading import specialreadnews
