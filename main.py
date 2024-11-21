@@ -1,7 +1,8 @@
 import gradio as gr
 from functions.labelReading import specialreadnews
-from functions.imageCaptioning import generate_captions
+## from functions.imageCaptioning import generate_captions
 from functions.objectDetect import objectdetect
+from utils.text2speech import text_to_speech
 from functions.labelReading import specialreadnews
 import os
 
@@ -19,14 +20,20 @@ with gr.Blocks() as demo:
         btn_detection = gr.Button("Object Detection")
         btn_labels = gr.Button("Read Labels")
     
-    # Output display
+    # Button triggers
     with gr.Row():
         output_text = gr.Textbox(label="Output", lines=3)
-
-    # Button triggers
-    btn_caption.click(generate_captions, inputs=image_input, outputs=output_text)
-    btn_detection.click(objectdetect, inputs=image_input, outputs=output_text)
-    btn_labels.click(specialreadnews, inputs=image_input, outputs=output_text)
+        output_audio = gr.Audio(label="Audio Output" , autoplay=True)
+    
+    # Button triggers with TTS integration
+    btn_caption.click(lambda img: text_to_speech(generate_captions(img)), 
+                     inputs=image_input, outputs=[output_text, output_audio])
+    
+    btn_detection.click(lambda img: text_to_speech(objectdetect(img)), 
+                        inputs=image_input, outputs=[output_text, output_audio])
+    
+    btn_labels.click(lambda img: text_to_speech(specialreadnews(img)), 
+                     inputs=image_input, outputs=[output_text, output_audio])
 
 # Launch the interface
 demo.launch()

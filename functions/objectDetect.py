@@ -29,7 +29,6 @@ COCO_CLASSES = {
     72: "sink", 73: "refrigerator", 74: "book", 75: "clock", 76: "vase", 77: "scissors",
     78: "teddy bear", 79: "hair drier", 80: "toothbrush"
 }
-
 def objectdetect(img):
     """
     Detects objects using YOLO and returns directional guidance based on object positions.
@@ -46,9 +45,14 @@ def objectdetect(img):
     img_height, img_width = img.shape[:2]
     img_center_x = img_width / 2
 
+    # Check if any objects are detected
+    objects_detected = False  # Flag to track detection
+
     # Iterate through detection results
     for result in results:
         for box in result.boxes:
+            objects_detected = True  # At least one object is detected
+
             # Extract bounding box coordinates
             xyxy = box.xyxy.cpu().numpy().tolist()
             x_min, y_min, x_max, y_max = xyxy[0]
@@ -72,7 +76,13 @@ def objectdetect(img):
                 "direction": direction
             }
 
-    return generate_prompt(obj_data=obj)
+    # If no objects are detected, return a message
+    if not objects_detected:
+        return "No objects detected."
+
+    # Generate prompt based on detected objects
+    return " ".join(generate_prompt(obj_data=obj))
+
 
 
 def generate_prompt(obj_data):
