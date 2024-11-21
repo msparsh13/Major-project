@@ -1,7 +1,6 @@
 
 import easyocr
 from symspellpy import SymSpell, Verbosity
-from textblob import TextBlob
 from PIL import Image, ImageOps
 import numpy as np
 # Convert the image to grayscale
