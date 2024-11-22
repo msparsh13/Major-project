@@ -10,15 +10,16 @@ with gr.Blocks() as demo:
     
     # inputs
     with gr.Row():
-        image_input = gr.Image(sources=['webcam'],label="Capture Image")
-        audio_input = gr.Audio(sources=['microphone'], type="filepath", label="Speak Your Command")
+        # image_input = gr.Image(sources=['webcam'],label="Capture Image")
+        image_input = gr.Image(label="Capture Image")
+        # audio_input = gr.Audio(sources=['microphone'], type="filepath", label="Speak Your Command")
 
     
     # Buttons for different functionalities
-    # with gr.Row():
-    #     btn_caption = gr.Button("Generate Captions")
-    #     btn_detection = gr.Button("Object Detection")
-    #     btn_labels = gr.Button("Read Labels")
+    with gr.Row():
+        btn_caption = gr.Button("Generate Captions")
+        btn_detection = gr.Button("Object Detection")
+        btn_labels = gr.Button("Read Labels")
     
     # Output display
     # with gr.Row():
@@ -26,22 +27,22 @@ with gr.Blocks() as demo:
         
      # Output: Audio
     with gr.Row():
-        output_audio = gr.Audio(label="Result Audio", type="filepath")
+        output_audio = gr.Audio(label="Result Audio", type="filepath", autoplay=True)
         
     # Process button
-    with gr.Row():
-        process_btn = gr.Button("Process")
+    # with gr.Row():
+    #     process_btn = gr.Button("Process")
 
     # Button triggers
-    # btn_caption.click(generate_captions, inputs=image_input, outputs=output_text)
-    # btn_detection.click(objectdetect, inputs=image_input, outputs=output_text)
-    # btn_labels.click(specialreadnews, inputs=image_input, outputs=output_text)
+    btn_caption.click(generate_captions, inputs=image_input, outputs=output_audio)
+    btn_detection.click(objectdetect, inputs=image_input, outputs=output_audio)
+    btn_labels.click(specialreadnews, inputs=image_input, outputs=output_audio)
     
-    process_btn.click(
-        process_voice,
-        inputs=[audio_input, image_input],
-        outputs=output_audio,
-    )
+    # process_btn.click(
+    #     process_voice,
+    #     inputs=[audio_input, image_input],
+    #     outputs=output_audio,
+    # )
 
 
 # Launch the interface

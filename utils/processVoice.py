@@ -1,8 +1,8 @@
 from functions.imageCaptioning import generate_captions
 from functions.labelReading import specialreadnews
 from functions.objectDetect import objectdetect
-from .voiceToText import voiceToText
-from .textToVoice import textToVoice
+from .speecToText import speech_to_text
+from .textToSpeech import text_to_speech
 
 def process_voice(audio, image):
     """   
@@ -10,7 +10,8 @@ def process_voice(audio, image):
     """
     try:
         # Transcribe audio to text
-        transcription = voiceToText(audio)
+        transcription = speech_to_text(audio)
+        print(transcription)
 
         # Determine which model to run
         if "caption" in transcription:
@@ -23,8 +24,8 @@ def process_voice(audio, image):
             result = "Command not recognized. Please say 'caption', 'detect objects', or 'read labels'."
         
         # Convert result to audio
-        audio_path = textToVoice(result)
+        audio_path = text_to_speech(result)
         return audio_path
     except Exception as e:
         error_message = f"Error processing voice input: {str(e)}"
-        return textToVoice(error_message)
+        return text_to_speech(error_message)
