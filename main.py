@@ -8,21 +8,21 @@ from utils.processVoice import process_voice
 with gr.Blocks() as demo:
     gr.Markdown("## NAYAN")
     
-    # Camera input
+    # inputs
     with gr.Row():
-        image_input = gr.Image(source="webcam", label="Capture Image")
-        audio_input = gr.Audio(source="microphone", type="filepath", label="Speak Your Command")
+        image_input = gr.Image(sources=['webcam'],label="Capture Image")
+        audio_input = gr.Audio(sources=['microphone'], type="filepath", label="Speak Your Command")
 
     
-    # # Buttons for different functionalities
+    # Buttons for different functionalities
     # with gr.Row():
     #     btn_caption = gr.Button("Generate Captions")
     #     btn_detection = gr.Button("Object Detection")
     #     btn_labels = gr.Button("Read Labels")
     
     # Output display
-    with gr.Row():
-        output_text = gr.Textbox(label="Output", lines=3)
+    # with gr.Row():
+    #     output_text = gr.Textbox(label="Output", lines=3)
         
      # Output: Audio
     with gr.Row():
@@ -40,7 +40,7 @@ with gr.Blocks() as demo:
     process_btn.click(
         process_voice,
         inputs=[audio_input, image_input],
-        outputs=output_text,
+        outputs=output_audio,
     )
 
 
