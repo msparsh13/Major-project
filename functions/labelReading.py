@@ -3,8 +3,6 @@ import easyocr
 from symspellpy import SymSpell, Verbosity
 from PIL import Image, ImageOps
 import numpy as np
-# Convert the image to grayscale
-
 
 def specialreadnews(img):
   # Initialize SymSpell
