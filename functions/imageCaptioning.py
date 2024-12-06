@@ -1,4 +1,5 @@
 from PIL import Image
+from torch import Tensor
 from transformers import BlipProcessor, BlipForConditionalGeneration
 
 processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")

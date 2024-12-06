@@ -1,8 +1,7 @@
 from functions.imageCaptioning import generate_captions
 from functions.labelReading import specialreadnews
 from functions.objectDetect import objectdetect
-# from .speechToText import speech_to_text
-from .textToSpeech import text_to_speech
+from utils.textToSpeech import text_to_speech
 from utils.whisperSpeechToText import whisper_speech_to_text
 
 def process_voice(audio, image):
@@ -11,11 +10,11 @@ def process_voice(audio, image):
         transcription = whisper_speech_to_text(audio)
 
         # Determine which model to run:=> need to update this logic
-        if "Caption" in transcription:
+        if "caption" in transcription.lower():
             result = generate_captions(image)
-        elif "Detect" in transcription or "objects" in transcription:
-            result = objectdetect(image)
-        elif "Read" in transcription or "labels" in transcription:
+        elif "detect" in transcription.lower() or "objects" in transcription.lower():
+            result = objectdetect(image)[0]
+        elif "read" in transcription.lower() or "labels" in transcription.lower():
             result = specialreadnews(image)
         else:
             result = "Command not recognized. Please say 'caption', 'detect objects', or 'read labels'."

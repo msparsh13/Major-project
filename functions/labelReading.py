@@ -1,4 +1,3 @@
-
 import easyocr
 from symspellpy import SymSpell, Verbosity
 from PIL import Image, ImageOps
@@ -24,7 +23,6 @@ def specialreadnews(img):
         corrected_results.append(suggestions[0].term)
       else:
         corrected_results.append(word)
-
-      
+  
     return " ".join(corrected_results)
     

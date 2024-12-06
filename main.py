@@ -16,7 +16,7 @@ with gr.Blocks() as demo:
     # Process button
     with gr.Row():
         process_btn = gr.Button("Process")
-        
+      
     process_btn.click(
         process_voice,
         inputs=[audio_input, image_input],
