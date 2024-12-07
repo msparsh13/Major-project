@@ -1,0 +1,12 @@
+from gtts import gTTS
+import tempfile
+
+def text_to_speech(text):
+    # Convert text to speech
+    if isinstance(text, list):
+        text= " and ".join(map(str, text))
+    tts = gTTS(text)
+    # Save to a temporary file
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3" )
+    tts.save(temp_file.name)
+    return temp_file.name
